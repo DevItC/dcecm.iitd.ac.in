@@ -19,6 +19,55 @@
     <script type="text/javascript" src="js/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/jquery.localscroll-min.js"></script>
   
+
+    <script>
+                // Cache selectors
+        var lastId,
+            topMenu = $("#top-menu"),
+            topMenuHeight = topMenu.outerHeight()+15,
+            // All list items
+            menuItems = topMenu.find("a"),
+            // Anchors corresponding to menu items
+            scrollItems = menuItems.map(function(){
+              var item = $($(this).attr("href"));
+              if (item.length) { return item; }
+            });
+
+        // Bind click handler to menu items
+        // so we can get a fancy scroll animation
+        menuItems.click(function(e){
+          var href = $(this).attr("href"),
+              offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+          $('html, body').stop().animate({ 
+              scrollTop: offsetTop
+          }, 300);
+          e.preventDefault();
+        });
+
+        // Bind to scroll
+        $(window).scroll(function(){
+           // Get container scroll position
+           var fromTop = $(this).scrollTop()+topMenuHeight;
+           
+           // Get id of current scroll item
+           var cur = scrollItems.map(function(){
+             if ($(this).offset().top < fromTop)
+               return this;
+           });
+           // Get the id of the current element
+           cur = cur[cur.length-1];
+           var id = cur && cur.length ? cur[0].id : "";
+           
+           if (lastId !== id) {
+               lastId = id;
+               // Set/remove active class
+               menuItems
+                 .parent().removeClass("active")
+                 .end().filter("[href='#"+id+"']").parent().addClass("active");
+           }                   
+        });
+    </script>
+
 </head><!--/head-->
 
 <body id="home" class="homepage">
@@ -38,8 +87,8 @@
 <a class="navbar-brand" href="index.html" style="margin-left: 0.1em; float: right; padding-left: 0.3em !important; padding-top: 1em !important;">CoE Climate Modelling<p style="text-align: center; font-size: 10px; margin-bottom: -2em;">IIT Delhi | CAS | DST Centre of excellence in climate modeling</p></a></div>
 				
                 <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li class="scroll active"><a href="index.html">Home</a></li>
+                    <ul class="nav navbar-nav top-menu">
+                        <li class="scroll active"><a href="#">Home</a></li>
                         <li class="scroll"><a href="#services">Background</a></li>
 			 <li class="scroll"><a href="#blog">Research</a></li>
 			<li class="scroll"><a href="#animated-number">People</a></li>
@@ -129,7 +178,8 @@
 
     
 
-	<section id="services" >
+	<a id="services" ></a>
+    <section>
         <div class="container">
 
             <div class="section-header">
@@ -141,7 +191,7 @@ This is deliverable only when we have a reliable model - a model successful in c
 regional climate of India and can be used for future climate projections at district level to assess the impacts of climate change on agriculture, health, water resources as well as the 
 energy sectors.</p>
             </div>
-<center><img class="img-responsive" src="images/es_6.gif" alt=""></center>
+<center><img class="img-responsive" src="images/es_6fast.gif" alt=""></center>
 				<p><center><a href="https://earth.nullschool.net/">Source : Earth Nullschool</a></p></center>
 
 
