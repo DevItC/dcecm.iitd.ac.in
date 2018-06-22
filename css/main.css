@@ -230,7 +230,7 @@ ul.nostyle i {
   
   #main-menu.navbar-default .navbar-nav > li > a {
     padding-top: 2px;
-    padding-bottom: 20px; font-size:16px;font-family: 'Roboto-regular'; font-weight:normal;
+    padding-bottom: 10px; font-size:16px;font-family: 'Roboto-regular'; font-weight:normal;
   }
   #main-menu.navbar-default .navbar-nav > li.active > a,
   #main-menu.navbar-default .navbar-nav > li.open > a,
