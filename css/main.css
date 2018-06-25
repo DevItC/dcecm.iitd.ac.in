@@ -354,9 +354,9 @@ ul.nostyle i {
 }
 #progressBar {
   margin-top: -4px;
-  position: relative;
-  z-index: 999;
+  z-index: 0;
   width: 100%;
+  position: hidden;
   background: rgba(0, 0, 0, 0.1);
 }
 
